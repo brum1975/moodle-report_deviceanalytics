@@ -39,6 +39,12 @@ $CFG->additionalhtmlhead .= '<noscript>
 <meta http-equiv="refresh" content="0;url='.$CFG->wwwroot.'">
 </noscript>';
 echo $OUTPUT->header();
+if (isset($SESSION->wantsurl)) {
+	$urltogo = $SESSION->wantsurl;
+} else {
+	$urltogo = $CFG->wwwroot.'/';
+}
+unset($SESSION->wantsurl);
 ?>
 <script type="text/javascript">
     $( document ).ready(function() {
@@ -57,7 +63,7 @@ echo $OUTPUT->header();
                 url: ajaxurl,
                 data: screensize,
             }).done(function(html) {
-                window.location.replace("<?php echo $CFG->wwwroot; ?>");
+                window.location.replace("<?php echo $urltogo; ?>");
             });
         }
     });
